@@ -33,11 +33,11 @@ jobs:
 
       # Step 6: Build Docker image
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/my-node-app .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/helloworld .
 
       # Step 7: Push Docker image to Docker Hub
       - name: Push image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/my-node-app:latest
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/helloworld:latest
 
       # Step 8: Notify success
       - name: ✅ Done
@@ -56,13 +56,13 @@ jobs:
             sudo systemctl enable docker
 
             # Pull Docker image from Docker Hub on the VM
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/my-node-app:latest
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/helloworld:latest
 
             # Stop and remove any old containers (if they exist)
             sudo docker stop myapp || true
             sudo docker rm myapp || true
 
             # Run the new Docker container
-            sudo docker run -d --name myapp -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/my-node-app:latest
+            sudo docker run -d --name myapp -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/helloworld:latest
 
             echo "Deployment completed successfully!"
